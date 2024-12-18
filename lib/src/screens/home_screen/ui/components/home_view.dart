@@ -1,11 +1,13 @@
+import 'package:ab_assessment/src/models/investment.dart';
 import 'package:ab_assessment/src/screens/home_screen/data/dummy_investments.dart';
+import 'package:ab_assessment/src/screens/home_screen/ui/components/invest_bottom_sheet.dart';
 import 'package:ab_assessment/src/screens/home_screen/ui/widgets/invest_option_card.dart';
 import 'package:ab_assessment/src/screens/home_screen/ui/widgets/investment_card.dart';
 import 'package:ab_assessment/src/utils/utils_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   final TextEditingController searchController;
   final FocusNode searchFocusNode;
 
@@ -15,6 +17,11 @@ class HomeView extends StatelessWidget {
     required this.searchFocusNode,
   });
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -97,8 +104,8 @@ class HomeView extends StatelessWidget {
                     16.boxWidth,
                     Expanded(
                       child: TextField(
-                        focusNode: searchFocusNode,
-                        controller: searchController,
+                        focusNode: widget.searchFocusNode,
+                        controller: widget.searchController,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 16.sp,
@@ -116,7 +123,7 @@ class HomeView extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         onTapOutside: (_) {
-                          searchFocusNode.unfocus();
+                          widget.searchFocusNode.unfocus();
                         },
                       ),
                     ),
@@ -154,15 +161,38 @@ class HomeView extends StatelessWidget {
               ),
               children: [
                 for (int i = 0; i < dummyInvestments.length; i++)
-                  InvestmentCard(
-                    investment: dummyInvestments[i],
-                    isFirstInRow: dummyInvestments.length ~/ 2 > i,
-                    isLastInRow: dummyInvestments.length ~/ 2 - 1 < i,
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: dummyInvestments.length ~/ 2 > i ? 16.w : 0,
+                      right: dummyInvestments.length ~/ 2 - 1 < i ? 16.w : 0,
+                    ),
+                    child: InvestmentCard(
+                      investment: dummyInvestments[i],
+                      onCardTapped: () {
+                        _onCardTapped(context, dummyInvestments[i]);
+                      },
+                    ),
                   ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _onCardTapped(BuildContext context, Investment investment) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return InvestBottomSheet(investment: investment);
+      },
+      isScrollControlled: true,
+      useSafeArea: true,
+      barrierColor: const Color(0xFFC4C4C4).withOpacity(0.8),
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(34.r)),
       ),
     );
   }

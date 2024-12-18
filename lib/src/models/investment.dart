@@ -9,6 +9,7 @@ class Investment {
   final String timeToMaturity;
   final double pricePerUnit;
   final InvestmentStatus status;
+  final String company;
 
   const Investment({
     required this.name,
@@ -17,5 +18,6 @@ class Investment {
     required this.timeToMaturity,
     required this.pricePerUnit,
     required this.status,
+    required this.company,
   });
 }

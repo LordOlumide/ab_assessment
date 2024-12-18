@@ -1,16 +1,16 @@
 import 'package:ab_assessment/src/screens/home_screen/ui/components/nav_bar_item.dart';
+import 'package:ab_assessment/src/utils/constants/assets.dart';
 import 'package:ab_assessment/src/utils/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 List<NavBarItem> navbarItems = [
-  const NavBarItem(iconPath: 'assets/vectors/home.svg', title: 'Home'),
-  const NavBarItem(iconPath: 'assets/vectors/save.svg', title: 'Save'),
-  const NavBarItem(
-      iconPath: 'assets/vectors/portfolio.svg', title: 'Portfolio'),
-  const NavBarItem(iconPath: 'assets/vectors/rewards.svg', title: 'Rewards'),
-  const NavBarItem(iconPath: 'assets/vectors/account.svg', title: 'Account'),
+  const NavBarItem(iconPath: VectorAssets.home, title: 'Home'),
+  const NavBarItem(iconPath: VectorAssets.save, title: 'Save'),
+  const NavBarItem(iconPath: VectorAssets.portfolio, title: 'Portfolio'),
+  const NavBarItem(iconPath: VectorAssets.rewards, title: 'Rewards'),
+  const NavBarItem(iconPath: VectorAssets.account, title: 'Account'),
 ];
 
 class NavBar extends StatelessWidget {
